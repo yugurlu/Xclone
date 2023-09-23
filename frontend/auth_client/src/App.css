@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+  
+.LoginForm {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #000000;
+
+  color: white;
+}
+  
+.LoginForm input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+  
+.LoginForm button {
+  width:45%;
+  padding: 10px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+  
+.LoginForm button:hover {
+  background-color: #ffffff;
+}
+  
