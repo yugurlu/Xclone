@@ -46,55 +46,55 @@ function App() {
   });
 
   return (
-    <div className="home">
-      <header className="header">
-        <img
-          src="https://static.dezeen.com/uploads/2023/07/x-logo-twitter-elon-musk_dezeen_2364_col_0-1.jpg"
-          alt="Twitter"
-          className="logo"
-        />
-        <img
-          src={userProfilePicture}
-          alt="Profile"
-          className="profile"
-          style={{
-            transform: isHovered ? "scale(1.1)" : "scale(1)",
-            transition: "transform 0.3s ease-in-out",
-          }}
-          onMouseEnter={() => {
-            setHovered(true);
-          }}
-          onMouseLeave={() => {
-            setHovered(false);
-          }}
-        />
-        <h1 className="headerText">{headerText}</h1>
-      </header>
-      <div>
-        <SendTweet setNewTweet={setNewTweet} />
+      <div className="home">
+        <header className="header">
+          <img
+            src="https://static.dezeen.com/uploads/2023/07/x-logo-twitter-elon-musk_dezeen_2364_col_0-1.jpg"
+            alt="Twitter"
+            className="logo"
+          />
+          <img
+            src={userProfilePicture}
+            alt="Profile"
+            className="profile"
+            style={{
+              transform: isHovered ? "scale(1.1)" : "scale(1)",
+              transition: "transform 0.3s ease-in-out",
+            }}
+            onMouseEnter={() => {
+              setHovered(true);
+            }}
+            onMouseLeave={() => {
+              setHovered(false);
+            }}
+          />
+          <h1 className="headerText">{headerText}</h1>
+        </header>
+        <div>
+          <SendTweet setNewTweet={setNewTweet} />
+        </div>
+        <main className="main">
+          {tweets == null ? (
+            <p>No tweets avaiable...</p>
+          ) : (
+            <div className="tweet-list">
+              {tweets.map((tweets, index) => (
+                <Tweet
+                  key={index}
+                  id={tweets._id}
+                  username={tweets.sharedBy}
+                  profilePicture={tweets.profilePicture}
+                  content={tweets.content}
+                  likes={tweets.Actions.likes}
+                  comments={tweets.Actions.comments}
+                  isSelected={tweets._id === selectedTweetId}
+                  media="https://pbs.twimg.com/media/F6gA5aTXUAASx5Z?format=jpg&name=large"
+                />
+              ))}
+            </div>
+          )}
+        </main>
       </div>
-      <main className="main">
-        {tweets == null ? (
-          <p>No tweets avaiable...</p>
-        ) : (
-          <div className="tweet-list">
-            {tweets.map((tweets, index) => (
-              <Tweet
-                key={index}
-                id={tweets._id}
-                username={tweets.sharedBy}
-                profilePicture={tweets.profilePicture}
-                content={tweets.content}
-                likes={tweets.Actions.likes}
-                comments={tweets.Actions.comments}
-                isSelected={tweets._id === selectedTweetId}
-                media="https://pbs.twimg.com/media/F6gA5aTXUAASx5Z?format=jpg&name=large"
-              />
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
   );
 }
 
