@@ -5,15 +5,8 @@ import { useEffect } from "react";
 import SendComment from "./SendComment";
 
 function Tweet({
-  username,
-  profilePicture,
-  content,
-  likes,
-  media,
-  comments,
-  retweett,
-  id,
   key,
+  tweets,
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setHovered] = useState(false);
@@ -47,7 +40,7 @@ function Tweet({
   };
 
   useEffect(() => {
-    if (likes && likes.includes(userId)) setIsLiked(true);
+    if (tweets.Actions.likes && tweets.Actions.likes.includes(userId)) setIsLiked(true);
     else setIsLiked(false);
   }, []);
 
@@ -55,60 +48,21 @@ function Tweet({
 
   const retweet = (tweetId) => {};
 
-  const tweetData = [
-    {
-      id: 1,
-      username: "user1",
-      profilePicture: profilePicture,
-      content: "This is the first tweet.",
-      likes: likes,
-    },
-    {
-      id: 2,
-      username: "user2",
-      profilePicture: profilePicture,
-      content: "This is the second tweet.",
-      likes: likes,
-    },
-    {
-      id: 3,
-      username: "user3",
-      profilePicture: profilePicture,
-      content:
-        'Random rap facts that might SHOCK you 😳🔥 • Ice Spice has more Spotify monthly listeners than J. Cole • Nicki Minaj songs have charted for more weeks on Billboard than the next 3 most popular female rappers songs have combined • Drake song "In My Feelings" has more streams than EVERY Pusha T song combined • Eminem’s “Curtain Call” has charted for longer than EVERY Jay Z album has combined',
-      likes: likes,
-    },
-    {
-      id: 4,
-      username: "user4",
-      profilePicture: profilePicture,
-      content: "This is the fourth tweet.",
-      likes: likes,
-    },
-    {
-      id: 5,
-      username: "user5",
-      profilePicture: profilePicture,
-      content: "This is the fifth tweet.",
-      likes: likes,
-    },
-  ];
-
   return (
     <div
-      className={`tweet ${
-        isSelected ? "grow-tweet" : "re-grow-tweet"
-      } ${comments}`}
+      className={`tweet ${isSelected ? "grow-tweet" : "re-grow-tweet"} ${
+        tweets.Actions.comments
+      }`}
     >
       <img
-        src={profilePicture}
-        alt={`${username}'s profile`}
+        src={tweets.profilePicture}
+        alt={`${tweets.sharedBy}'s profile`}
         className="profile-img"
       />
-      <div className={`main-content${comments}`}>
-        <div className={`tweet-content-${comments}`}>
-          <h4 className="username">{username}</h4>
-          <p onClick={handleClick}> {content} </p>
+      <div className={`main-content${tweets.Actions.comments}`}>
+        <div className={`tweet-content-${tweets.Actions.comments}`}>
+          <h4 className="username">{tweets.sharedBy}</h4>
+          <p onClick={handleClick}> {tweets.content} </p>
           {key == 1 ? (
             <img src="https://pbs.twimg.com/media/F6gA5aTXUAASx5Z?format=jpg&name=large"></img>
           ) : null}
@@ -119,7 +73,7 @@ function Tweet({
                 height="24"
                 aria-hidden="true"
                 class="like-button"
-                onClick={() => likeDislike(id)}
+                onClick={() => likeDislike(tweets._id)}
                 onMouseEnter={() => {
                   setHovered(true);
                 }}
@@ -141,7 +95,7 @@ function Tweet({
                 height="24"
                 aria-hidden="true"
                 class="red-like-button"
-                onClick={() => likeDislike(id)}
+                onClick={() => likeDislike(tweets._id)}
                 onMouseEnter={() => {
                   setHovered(true);
                 }}
@@ -184,7 +138,7 @@ function Tweet({
               height="24"
               aria-hidden="true"
               class="rte-button"
-              onClick={() => retweet(id)}
+              onClick={() => retweet(tweets._id)}
               onMouseEnter={() => {
                 setHovered3(true);
               }}
@@ -205,22 +159,10 @@ function Tweet({
         {isSelected === true ? (
           <div className="tweet-list2">
             <SendComment></SendComment>
-            {tweetData == null ? (
-              <p>No comments avaiable...</p>
+            {tweets.Actions.comments.length == 0 ? (
+              <p></p>
             ) : (
-              <div className="comments-list">
-                {tweetData.map((tweets, index) => (
-                  <Tweet
-                    key={index}
-                    id={tweets._id}
-                    username={"tweetData.username"}
-                    profilePicture={tweets.profilePicture}
-                    content={tweets.content}
-                    likes={null}
-                    comments={"comments"}
-                  />
-                ))}
-              </div>
+              <div className="comments-list"></div>
             )}
           </div>
         ) : null}

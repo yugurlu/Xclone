@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import "../Home.css";
+import "../Sidebar.css"
 import axios from "axios";
 import { useEffect } from "react";
 import SendTweet from "./SendTweet";
 import Tweet from "./Tweet";
 import * as moment from "moment";
 import "moment/locale/pt-br";
+import Sidebar from "./Sidebar";
 
 function App() {
   const [tweets, setTweets] = useState(null);
   const [newTweet, setNewTweet] = useState(null);
   const [isHovered, setHovered] = useState(false);
   const [headerText, setHeaderText] = useState("");
-  const [selectedTweetId, setSelectedTweetId] = useState(null);
 
   const userProfilePicture = localStorage.getItem("loggedInUserProfilePicture");
 
@@ -46,6 +47,10 @@ function App() {
   });
 
   return (
+    <div className="main">
+      <div className="SideBar">
+        <Sidebar></Sidebar>
+      </div>
       <div className="home">
         <header className="header">
           <img
@@ -81,20 +86,14 @@ function App() {
               {tweets.map((tweets, index) => (
                 <Tweet
                   key={index}
-                  id={tweets._id}
-                  username={tweets.sharedBy}
-                  profilePicture={tweets.profilePicture}
-                  content={tweets.content}
-                  likes={tweets.Actions.likes}
-                  comments={tweets.Actions.comments}
-                  isSelected={tweets._id === selectedTweetId}
-                  media="https://pbs.twimg.com/media/F6gA5aTXUAASx5Z?format=jpg&name=large"
+                  tweets={tweets}
                 />
               ))}
             </div>
           )}
         </main>
       </div>
+    </div>
   );
 }
 
